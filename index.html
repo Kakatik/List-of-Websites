@@ -5,6 +5,126 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
+  <div style="position: absolute; top: 10px; right: 10px; width: 300px;">
+
+    <input
+        type="text"
+        id="searchBar"
+        placeholder="Search links..."
+        onkeyup="searchLinks()"
+        style="width: 200px;"
+    >
+
+    <button onclick="searchLinks()">Search</button>
+
+    <div id="searchResults" style="margin-top: 5px;"></div>
+
+</div>
+
+
+<script>
+async function searchLinks() {
+
+    const query = document.getElementById("searchBar").value.toLowerCase().trim();
+    const results = document.getElementById("searchResults");
+
+    if (query === "") {
+        results.innerHTML = "";
+        return;
+    }
+
+    const pages = [
+        "index.html",
+        "iptv.html",
+        "links.html",
+        "onion.html",
+        "onionway.html",
+        "piracy.html",
+        "video.html",
+        "android.html",
+        "downloading.html"
+    ];
+
+    results.innerHTML = "Searching...";
+
+    let foundLinks = [];
+    let seenLinks = new Set();
+
+    for (const page of pages) {
+
+        try {
+
+            const response = await fetch(page);
+            const html = await response.text();
+
+            const parser = new DOMParser();
+            const documentPage = parser.parseFromString(html, "text/html");
+
+            const links = documentPage.querySelectorAll("a[href]");
+
+            links.forEach(link => {
+
+                const url = link.href;
+                const text = link.textContent.trim();
+
+                if (
+                    url.toLowerCase().includes(query) ||
+                    text.toLowerCase().includes(query)
+                ) {
+
+                    if (!seenLinks.has(url)) {
+
+                        seenLinks.add(url);
+
+                        foundLinks.push({
+                            url: url,
+                            text: text || url
+                        });
+
+                    }
+
+                }
+
+            });
+
+        } catch (error) {
+
+            console.log("Could not search " + page);
+
+        }
+
+    }
+
+
+    if (foundLinks.length === 0) {
+
+        results.innerHTML = "No results found.";
+
+    } else {
+
+        results.innerHTML = "";
+
+        foundLinks.forEach(link => {
+
+            const result = document.createElement("div");
+
+            const anchor = document.createElement("a");
+
+            anchor.href = link.url;
+            anchor.textContent = link.text;
+            anchor.target = "_blank";
+
+            anchor.style.color = "yellow";
+
+            result.appendChild(anchor);
+            results.appendChild(result);
+
+        });
+
+    }
+
+}
+</script>
   <body bgcolor="black">
     <div>
       <a style="color:yellow" href="android.html">Android</a>
@@ -59,5 +179,14 @@
     <p><block style="color:yellow"><a href="https://jdownloader.org/">JDownloader</a> Download manager</block></p>
     <p><block style="color:yellow"><a href="https://abdownloadmanager.com/">AB download manager</a> Download manager</block></p>
     <img src="https://tinyurl.com/yc33zaeh">
+    <div style="
+    position: fixed;
+    bottom: 5px;
+    right: 5px;
+    color: yellow;
+    font-size: 15px;
+">
+    v 0.7
+</div>
   </body>
 </html>
