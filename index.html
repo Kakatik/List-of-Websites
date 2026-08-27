@@ -13,12 +13,6 @@
         placeholder="Search links..."
         onkeyup="searchLinks()"
         style="width: 200px;"
-        style="
-        background-color: #222;
-        color: grey;
-        border: 1px solid #555;
-        padding: 5px;
-    "
     >
 
     <button onclick="searchLinks()">Search</button>
@@ -49,7 +43,8 @@ async function searchLinks() {
         "video.html",
         "android.html",
         "downloading.html",
-        "tools.html"
+        "tools.html",
+        "educational.html"
     ];
 
     results.innerHTML = "Searching...";
@@ -140,6 +135,7 @@ async function searchLinks() {
       <a style="color:yellow" href="downloading.html">Downloading</a>
       <a style="color:yellow" href="video.html">Video</a>
       <a style="color:yellow" href="tools.html">Tools</a>
+      <a style="color:yellow" href="educational.html">Educational</a>
     </div>
     <h1 style="color:yellow">List of websites</h1>
     <h1 style="color:yellow">Piracy ‍☠</h1>
@@ -194,7 +190,7 @@ async function searchLinks() {
     color: yellow;
     font-size: 15px;
 ">
-    v 0.8
+    v 0.9
 </div>
   </body>
 </html>
