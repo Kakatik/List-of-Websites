@@ -1,0 +1,133 @@
+<html>
+    <div>
+        <a style="color:red" href="index.html">Head back to main page</a>
+        <a style="color:yellow" href="android.html">Android</a>
+        <a style="color:yellow" href="onion.html">Onion Links</a>
+        <a style="color:yellow" href="links.html">Links Dump</a>
+        <a style="color:yellow" href="downloading.html">Downloading</a>
+        <a style="color:yellow" href="video.html">Video</a>
+        <a style="color:yellow" href="tools.html">Tools</a>
+        <a style="color:yellow" href="educational.html">Educational</a>
+    </div>
+<head>
+    <meta charset="UTF-8">
+    <title>Search</title>
+
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            background-color: black;
+            color: yellow;
+        }
+
+        #searchContainer {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #searchBox {
+            width: 500px;
+            height: 50px;
+            font-size: 20px;
+            box-sizing: border-box;
+            background-color: black;
+            color: yellow;
+            border: 1px solid #222222;
+            padding: 10px;
+            outline: none;
+        }
+
+        #searchBox::placeholder {
+            color: #808000;
+            opacity: 1;
+        }
+
+        #results {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        #results a {
+            color: yellow;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="searchContainer">
+
+        <h1>Search.</h1>
+
+        <input
+            type="text"
+            id="searchBox"
+            placeholder="Search..."
+        >
+
+        <div id="results"></div>
+
+    </div>
+
+    <script>
+        async function searchLinks() {
+            const query = document
+                .getElementById("searchBox")
+                .value
+                .toLowerCase();
+
+            const results = document.getElementById("results");
+
+            if (!query) {
+                results.innerHTML = "";
+                return;
+            }
+
+            try {
+                const response = await fetch("magnets.html");
+                const html = await response.text();
+
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, "text/html");
+
+                // Finds EVERY link
+                const links = doc.querySelectorAll('a[href]');
+
+                results.innerHTML = "";
+
+                links.forEach(link => {
+                    if (link.textContent.toLowerCase().includes(query)) {
+
+                        const result = document.createElement("p");
+
+                        const newLink = document.createElement("a");
+
+                        newLink.href = link.href;
+                        newLink.textContent = link.textContent;
+
+                        result.appendChild(newLink);
+                        results.appendChild(result);
+                    }
+                });
+
+                if (results.innerHTML === "") {
+                    results.innerHTML = "No results found.";
+                }
+
+            } catch (error) {
+                results.innerHTML = "Could not load the link list.";
+                console.error(error);
+            }
+        }
+
+        document
+            .getElementById("searchBox")
+            .addEventListener("input", searchLinks);
+    </script>
+
+</body>
+</html>
