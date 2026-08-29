@@ -5,7 +5,28 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
-  <div style="position: absolute; top: 10px; right: 10px; width: 300px;">
+  <style>
+    @media (max-width: 600px) {
+      #searchContainer {
+        position: fixed !important;
+        top: auto !important;
+        bottom: 10px !important;
+        left: 10px !important;
+        right: 10px !important;
+        width: auto !important;
+        z-index: 1000;
+      }
+      #searchBar {
+        width: calc(100% - 75px) !important;
+      }
+      #searchResults {
+        max-height: 250px;
+        overflow-y: auto;
+        margin-bottom: 5px !important;
+      }
+    }
+  </style>
+  <div id="searchContainer" style="position: absolute; top: 10px; right: 10px; width: 300px;">
 
     <input
         type="text"
@@ -191,7 +212,7 @@ async function searchLinks() {
     color: yellow;
     font-size: 15px;
 ">
-    v 1
+    v 1.1
 </div>
   </body>
 </html>
