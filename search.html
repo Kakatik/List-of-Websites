@@ -9,10 +9,12 @@
         <a style="color:yellow" href="tools.html">Tools</a>
         <a style="color:yellow" href="educational.html">Educational</a>
     </div>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
 <head>
     <meta charset="UTF-8">
     <title>Search</title>
-
     <style>
         html, body {
             margin: 0;
@@ -20,7 +22,6 @@
             background-color: black;
             color: yellow;
         }
-
         #searchContainer {
             height: 100vh;
             display: flex;
@@ -28,7 +29,6 @@
             justify-content: center;
             align-items: center;
         }
-
         #searchBox {
             width: 500px;
             height: 50px;
@@ -40,94 +40,78 @@
             padding: 10px;
             outline: none;
         }
-
         #searchBox::placeholder {
             color: #808000;
             opacity: 1;
         }
-
         #results {
+            width: 500px;
+            height: 300px;
             margin-top: 20px;
-            text-align: center;
+            overflow-y: auto;
+            overflow-x: hidden;
+            border: 1px solid #222222;
+            box-sizing: border-box;
+            padding: 10px;
+            text-align: left;
         }
-
+        #results p {
+            margin: 8px 0;
+        }
         #results a {
             color: yellow;
         }
     </style>
 </head>
-
 <body>
-
     <div id="searchContainer">
-
         <h1>Search for everything.</h1>
-
         <input
             type="text"
             id="searchBox"
             placeholder="Search..."
         >
-
         <div id="results"></div>
-
     </div>
-
     <script>
         async function searchLinks() {
             const query = document
                 .getElementById("searchBox")
                 .value
                 .toLowerCase();
-
             const results = document.getElementById("results");
-
             if (!query) {
                 results.innerHTML = "";
                 return;
             }
-
             try {
                 const response = await fetch("magnets.html");
                 const html = await response.text();
-
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, "text/html");
-
-                // Finds EVERY link
                 const links = doc.querySelectorAll('a[href]');
-
                 results.innerHTML = "";
-
                 links.forEach(link => {
                     if (link.textContent.toLowerCase().includes(query)) {
-
                         const result = document.createElement("p");
-
                         const newLink = document.createElement("a");
-
                         newLink.href = link.href;
                         newLink.textContent = link.textContent;
-
                         result.appendChild(newLink);
                         results.appendChild(result);
                     }
                 });
-
                 if (results.innerHTML === "") {
                     results.innerHTML = "No results found.";
                 }
-
             } catch (error) {
                 results.innerHTML = "Could not load the link list.";
                 console.error(error);
             }
         }
-
         document
             .getElementById("searchBox")
             .addEventListener("input", searchLinks);
     </script>
-
 </body>
 </html>
