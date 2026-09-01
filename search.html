@@ -1,229 +1,164 @@
 <html>
-<head>
-    <meta charset="UTF-8">
-    <title>Search</title>
-
+  <body bgcolor="black">
+    <head>
+      <title>Search</title>
+    </head>
+    <div style="display:flex; justify-content:space-between;">
+      <div>
+        <a style="color:red" href="">Head back to main page</a>
+        <a style="color:yellow" href="">Android</a>
+        <a style="color:yellow" href="">Onion Links</a>
+        <a style="color:yellow" href="">Links Dump</a>
+        <a style="color:yellow" href="">Downloading</a>
+        <a style="color:yellow" href="">Video</a>
+        <a style="color:yellow" href="">Tools</a>
+        <a style="color:yellow" href="">Educational</a>
+      </div>
+      <a style="color:orange" href="">DDL Version</a>
+    </div>
+    <div style="text-align:center;">
+      <img src="https://tikolu.net/i/hkpat" width="300" height="250">
+      <h1 style="color:yellow">A Search...<br>For Everything.</h1>
+      <label style="color:yellow">
+        <input type="checkbox" id="everything" checked>Everything
+      </label>
+      <label style="color:yellow">
+        <input type="checkbox" id="movies">Movies
+      </label>
+      <label style="color:yellow">
+        <input type="checkbox" id="games">Games
+      </label>
+      <label style="color:yellow">
+        <input type="checkbox" id="audio">Audio
+      </label>
+      <label style="color:yellow">
+        <input type="checkbox" id="apps">Apps
+      </label>
+      <label style="color:yellow">
+        <input type="checkbox" id="other">Other
+      </label>
+      <label style="color:yellow">
+        <input type="checkbox" id="websites">Websites
+      </label>
+      <input id="search" type="text" placeholder="Search for anything you wish to find." style="display:block; margin:auto; margin-top:5px">
+      <h6 style="color:yellow; margin-top:10">Finally, a website that contains a search page that has everything you ever wanted!</h6>
+      <div id="results"></div>
+    </div>
     <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            background-color: black;
-            color: yellow;
-        }
-
-        #searchContainer {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #searchType {
-            margin-bottom: 15px;
-            font-size: 18px;
-        }
-
-        #searchType label {
-            margin: 0 10px;
-            cursor: pointer;
-        }
-
-        #searchBox {
-            width: 500px;
-            height: 50px;
-            font-size: 20px;
-            box-sizing: border-box;
-            background-color: black;
-            color: yellow;
-            border: 1px solid #222222;
-            padding: 10px;
-            outline: none;
-        }
-
-        #searchBox::placeholder {
-            color: #808000;
-            opacity: 1;
-        }
-
-        #results {
-            width: 500px;
-            height: 300px;
-            margin-top: 20px;
-            overflow-y: auto;
-            overflow-x: hidden;
-            border: 1px solid #222222;
-            box-sizing: border-box;
-            padding: 10px;
-            text-align: left;
-        }
-
-        #results p {
-            margin: 8px 0;
-        }
-
-        #results a {
-            color: yellow;
-        }
-
-        @media (max-width: 600px) {
-            #searchBox {
-                width: 90%;
-            }
-
-            #results {
-                width: 90%;
-            }
-        }
+      #search {
+        width: 560px;
+        height: 50px;
+        border: 0.5px solid yellow;
+        font-size: 25px;
+        background-color: black;
+        color: yellow;
+        font-family: "Courier New";
+      }
+      #search::placeholder {
+        text-align: center;
+        font-family: "Courier New";
+        color: #DFD25F;
+      }
+      #results {
+        width: 560px;
+        height: 300px;
+        margin: 20px auto;
+        overflow-y: auto;
+        text-align: left;
+        color: yellow;
+      }
+      #results a {
+        color: yellow;
+        font-family: "Courier New";
+      }
     </style>
-</head>
-
-<body>
-
-    <div>
-        <a style="color:red" href="index.html">Head back to main page</a>
-        <a style="color:yellow" href="android.html">Android</a>
-        <a style="color:yellow" href="onion.html">Onion Links</a>
-        <a style="color:yellow" href="links.html">Links Dump</a>
-        <a style="color:yellow" href="downloading.html">Downloading</a>
-        <a style="color:yellow" href="video.html">Video</a>
-        <a style="color:yellow" href="tools.html">Tools</a>
-        <a style="color:yellow" href="educational.html">Educational</a>
-    </div>
-
-    <div id="searchContainer">
-
-        <h1>Search for everything.</h1>
-
-        <div id="searchType">
-
-            <label>
-                <input type="checkbox" name="" id="torrentCheck" checked />
-                Torrent
-            </label>
-
-            <label>
-                <input type="checkbox" name="" id="ddlCheck" />
-                DDL
-            </label>
-
-        </div>
-
-        <input
-            type="text"
-            id="searchBox"
-            placeholder="Search..."
-        />
-
-        <div id="results"></div>
-
-    </div>
-
     <script>
-        let searchMode = "torrent";
-
-        document.getElementById("torrentCheck").addEventListener("change", function() {
+    let everything = document.getElementById("everything");
+    let movies = document.getElementById("movies");
+    let games = document.getElementById("games");
+    let audio = document.getElementById("audio");
+    let apps = document.getElementById("apps");
+    let other = document.getElementById("other");
+    let websites = document.getElementById("websites");
+    let categories = [
+        everything,
+        movies,
+        games,
+        audio,
+        apps,
+        other,
+        websites
+    ];
+    for (let category of categories) {
+        category.addEventListener("change", function() {
             if (this.checked) {
-                document.getElementById("ddlCheck").checked = false;
-                searchMode = "torrent";
-                searchLinks();
-            } else {
-                this.checked = true;
-            }
-        });
-
-        document.getElementById("ddlCheck").addEventListener("change", function() {
-            if (this.checked) {
-                document.getElementById("torrentCheck").checked = false;
-                searchMode = "ddl";
-                searchLinks();
-            } else {
-                this.checked = true;
-            }
-        });
-
-        async function searchLinks() {
-
-            const query = document
-                .getElementById("searchBox")
-                .value
-                .toLowerCase();
-
-            const results = document.getElementById("results");
-
-            if (!query) {
-                results.innerHTML = "";
-                return;
-            }
-
-            try {
-
-                let file;
-
-                if (searchMode === "torrent") {
-                    file = "magnets.html";
-                } else {
-                    file = "direct.html";
-                }
-
-                const response = await fetch(file);
-                const html = await response.text();
-
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, "text/html");
-
-                let links;
-
-                if (searchMode === "torrent") {
-                    links = doc.querySelectorAll('a[href^="magnet:"]');
-                } else {
-                    links = doc.querySelectorAll('a[href]');
-                }
-
-                results.innerHTML = "";
-
-                let found = false;
-
-                links.forEach(link => {
-
-                    if (
-                        link.textContent
-                            .toLowerCase()
-                            .includes(query)
-                    ) {
-
-                        found = true;
-
-                        const result = document.createElement("p");
-
-                        const newLink = document.createElement("a");
-
-                        newLink.href = link.href;
-                        newLink.textContent = link.textContent;
-
-                        result.appendChild(newLink);
-                        results.appendChild(result);
+                for (let otherCategory of categories) {
+                    if (otherCategory !== this) {
+                        otherCategory.checked = false;
                     }
-
-                });
-
-                if (!found) {
-                    results.innerHTML = "No results found.";
                 }
-
-            } catch (error) {
-
-                results.innerHTML = "Could not load the link list.";
-
-                console.error(error);
+            } else {
+                this.checked = true;
+            }
+            doSearch();
+        });
+    }
+    async function doSearch() {
+        let query = document.getElementById("search").value.toLowerCase();
+        let results = document.getElementById("results");
+        results.innerHTML = "";
+        if (query === "") {
+            return;
+        }
+        let files = [];
+        if (everything.checked) {
+            files = [
+                "magnets.html",
+                "movies.html",
+                "games.html",
+                "audio.html",
+                "apps.html",
+                "other.html",
+                "websites.html"
+            ];
+        }
+        if (movies.checked) {
+            files = ["movies.html"];
+        }
+        if (games.checked) {
+            files = ["games.html"];
+        }
+        if (audio.checked) {
+            files = ["audio.html"];
+        }
+        if (apps.checked) {
+            files = ["apps.html"];
+        }
+        if (other.checked) {
+            files = ["other.html"];
+        }
+        if (websites.checked) {
+            files = ["websites.html"];
+        }
+        for (let file of files) {
+            let response = await fetch(file);
+            let html = await response.text();
+            let parser = new DOMParser();
+            let page = parser.parseFromString(html, "text/html");
+            let links = page.querySelectorAll("a");
+            for (let link of links) {
+                if (link.textContent.toLowerCase().includes(query)) {
+                    let result = document.createElement("a");
+                    result.textContent = link.textContent;
+                    result.href = link.href;
+                    result.target = "_blank";
+                    results.appendChild(result);
+                    results.appendChild(document.createElement("br"));
+                }
             }
         }
-
-        document
-            .getElementById("searchBox")
-            .addEventListener("input", searchLinks);
-
-    </script>
-
-</body>
+    }
+    document.getElementById("search").addEventListener("input", doSearch);
+    </script> 
+  </body>
 </html>
