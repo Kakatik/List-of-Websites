@@ -47,6 +47,8 @@
         text-align: center;
         box-sizing: border-box;
         flex-shrink: 0;
+        position: relative;
+        z-index: 10;
       }
       #sidebar a {
         color: yellow;
@@ -130,7 +132,6 @@
         </div>
         <input type="text" placeholder="Search for anything you wish to find." id="search">
         <div id="results"></div>
-        <button onclick="alert('hello yo')">Click me</button>
       </div>
     </div>
     <script>
