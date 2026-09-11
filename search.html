@@ -1,163 +1,54 @@
 <html>
-  <body bgcolor="black">
-    <head>
-      <title>Search</title>
-    </head>
-    <div style="display:flex; justify-content:space-between;">
-      <div>
-        <a style="color:red" href="index.html">Head back to main page</a>
-        <a style="color:yellow" href="android.html">Android</a>
-        <a style="color:yellow" href="onion.html">Onion Links</a>
-        <a style="color:yellow" href="links.html">Links Dump</a>
-        <a style="color:yellow" href="downloading.html">Downloading</a>
-        <a style="color:yellow" href="video.html">Video</a>
-        <a style="color:yellow" href="tools.html">Tools</a>
-        <a style="color:yellow" href="educational.html">Educational</a>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style1.css">
+  </head>
+  <body>
+    <div id="topbar">
+      <a href="index.html" style="color: red;">Head back to main page</a>
+      <span>Welcome to List-of-Websites!</span>
+      <input type="text" id="linksearch" style="background-color: black; border: 0.5px solid yellow; color: yellow;" placeholder="Search for links">
+    </div>
+    <div id="searchResults"></div>
+    <div id="layout">
+      <div id="sidebar">
+        <a href="android.html">Android</a><br>
+        <a href="onion.html">Onion Links</a><br>
+        <a href="links.html">Links Dump</a><br>
+        <a href="downloading.html">Downloading</a><br>
+        <a href="video.html">Video</a><br>
+        <a href="tools.html">Tools</a><br>
+        <a href="educational.html">Educational</a>
       </div>
-      <a style="color:orange" href="">DDL Version</a>
+      <div id="main">
+        <img width="300" height="250" src="https://tikolu.net/i/hkpat">
+        <h1 style="font-family: 'Courier New', Courier, monospace;">A Search...<br>
+        For Everything.</h1>
+        <div id="categories">
+        <label>
+          <input id="everything" type="checkbox" checked>Everything
+        </label>
+        <label>
+          <input id="movies" type="checkbox">Movies
+        </label>
+        <label>
+          <input id="games" type="checkbox">Games
+        </label>
+        <label>
+          <input id="audio" type="checkbox">Audio
+        </label>
+        <label>
+          <input id="apps" type="checkbox">Apps
+        </label>
+        <label>
+          <input id="Other" type="checkbox">Other
+        </label>
+        </div>
+        <input type="text" placeholder="Search for anything you wish to find." id="search">
+      </div>
     </div>
-    <div style="text-align:center;">
-      <img src="https://tikolu.net/i/hkpat" width="300" height="250">
-      <h1 style="color:yellow">A Search...<br>For Everything.</h1>
-      <label style="color:yellow">
-        <input type="checkbox" id="everything" checked>Everything
-      </label>
-      <label style="color:yellow">
-        <input type="checkbox" id="movies">Movies
-      </label>
-      <label style="color:yellow">
-        <input type="checkbox" id="games">Games
-      </label>
-      <label style="color:yellow">
-        <input type="checkbox" id="audio">Audio
-      </label>
-      <label style="color:yellow">
-        <input type="checkbox" id="apps">Apps
-      </label>
-      <label style="color:yellow">
-        <input type="checkbox" id="other">Other
-      </label>
-      <label style="color:yellow">
-        <input type="checkbox" id="websites">Websites
-      </label>
-      <input id="search" type="text" placeholder="Search for anything you wish to find." style="display:block; margin:auto; margin-top:5px">
-      <h6 style="color:yellow; margin-top:10">Finally, a website that contains a search page that has everything you ever wanted!</h6>
-      <div id="results"></div>
-    </div>
-    <style>
-      #search {
-        width: 560px;
-        height: 50px;
-        border: 0.5px solid yellow;
-        font-size: 25px;
-        background-color: black;
-        color: yellow;
-        font-family: "Courier New";
-      }
-      #search::placeholder {
-        text-align: center;
-        font-family: "Courier New";
-        color: #DFD25F;
-      }
-      #results {
-        width: 560px;
-        height: 300px;
-        margin: 20px auto;
-        overflow-y: auto;
-        text-align: left;
-        color: yellow;
-      }
-      #results a {
-        color: yellow;
-        font-family: "Courier New";
-      }
-    </style>
-    <script>
-    let everything = document.getElementById("everything");
-    let movies = document.getElementById("movies");
-    let games = document.getElementById("games");
-    let audio = document.getElementById("audio");
-    let apps = document.getElementById("apps");
-    let other = document.getElementById("other");
-    let websites = document.getElementById("websites");
-    let categories = [
-        everything,
-        movies,
-        games,
-        audio,
-        apps,
-        other,
-        websites
-    ];
-    for (let category of categories) {
-        category.addEventListener("change", function() {
-            if (this.checked) {
-                for (let otherCategory of categories) {
-                    if (otherCategory !== this) {
-                        otherCategory.checked = false;
-                    }
-                }
-            } else {
-                this.checked = true;
-            }
-            doSearch();
-        });
-    }
-    async function doSearch() {
-        let query = document.getElementById("search").value.toLowerCase();
-        let results = document.getElementById("results");
-        results.innerHTML = "";
-        if (query === "") {
-            return;
-        }
-        let files = [];
-        if (everything.checked) {
-            files = [
-                "movies.html",
-                "games.html",
-                "audio.html",
-                "apps.html",
-                "other.html",
-                "websites.html"
-            ];
-        }
-        if (movies.checked) {
-            files = ["movies.html"];
-        }
-        if (games.checked) {
-            files = ["games.html"];
-        }
-        if (audio.checked) {
-            files = ["audio.html"];
-        }
-        if (apps.checked) {
-            files = ["apps.html"];
-        }
-        if (other.checked) {
-            files = ["other.html"];
-        }
-        if (websites.checked) {
-            files = ["websites.html"];
-        }
-        for (let file of files) {
-            let response = await fetch(file);
-            let html = await response.text();
-            let parser = new DOMParser();
-            let page = parser.parseFromString(html, "text/html");
-            let links = page.querySelectorAll("a");
-            for (let link of links) {
-                if (link.textContent.toLowerCase().includes(query)) {
-                    let result = document.createElement("a");
-                    result.textContent = link.textContent;
-                    result.href = link.href;
-                    result.target = "_blank";
-                    results.appendChild(result);
-                    results.appendChild(document.createElement("br"));
-                }
-            }
-        }
-    }
-    document.getElementById("search").addEventListener("input", doSearch);
-    </script> 
+    <script src="search.js"></script>
   </body>
 </html>
