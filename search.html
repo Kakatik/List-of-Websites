@@ -5,89 +5,86 @@
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <style>
       body {
-        margin: 0;
         background-color: black;
         color: yellow;
         font-family: unbounded;
+        margin: 0;
       }
       #topbar {
+        align-items: center;
+        border: 0.5px solid yellow;
         height: 30px;
         display: flex;
-        align-items: center;
         justify-content: space-between;
-        padding: 0 10px;
-        border-bottom: 1px solid yellow;
-      }
-      #topbar input {
-        width: 300px;
-        height: 25px;
+        position: relative;
         box-sizing: border-box;
       }
-      #searchResults {
+      #topbar span {
         position: absolute;
-        top: 30px;
-        right: 10px;
-        width: 300px;
-        max-height: 250px;
-        overflow-y: auto;
-        background-color: black;
-        z-index: 100;
+        left: 50%;
+        transform: translateX(-50%);
       }
-      #searchResults a {
+      #topbar input {
+        margin-left: auto;
+      }
+      #topbar input::placeholder {
+        text-align: center;
+        font-size: 15px;
+        font-family: unbounded;
+      }
+      #topbar a {
+        font-size: 12px;
         color: yellow;
       }
       #layout {
         display: flex;
       }
       #sidebar {
-        width: 250px;
+        border: 0.5px solid yellow;
+        width: 130px;
         height: calc(100vh - 30px);
         overflow-y: auto;
-        background-color: black;
-        font-size: 20px;
-        border-right: 1px solid yellow;
+        text-align: center;
+        box-sizing: border-box;
+        flex-shrink: 0;
       }
       #sidebar a {
         color: yellow;
       }
       #main {
-        flex: 1;
+        position: absolute;
+        left: 0;
+        right: 0;
         text-align: center;
-        padding-top: 20px;
       }
-      #main img {
-        display: block;
-        margin: 0 auto;
-      }
-      #categories {
-        margin: 15px 0;
-      }
-      #categories label {
-        margin: 0 5px;
+      #main label {
+        display: inline-block;
       }
       #search {
         width: 560px;
         height: 50px;
-        box-sizing: border-box;
         background-color: black;
+        color: yellow;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 25px;
         border: 0.5px solid yellow;
-        color: yellow;
-        font-family: "Courier New", Courier, monospace;
-        text-align: center;
       }
-      #search::placeholder {
-        color: yellow;
-        text-align: center;
+      #categories {
+        margin-bottom: 15px;
       }
-      #results {
-        width: 560px;
-        max-height: 300px;
+      #categories label {
+        display: inline-block;
+        margin: 0 5px;
+      }
+      #searchResults {
+        position: absolute;
+        top: 31px;
+        right: 0;
+        width: 300px;
+        max-height: 250px;
         overflow-y: auto;
-        margin: 10px auto 0;
-        text-align: left;
-      }
-      #results a {
-        color: yellow;
+        background-color: black;
+        z-index: 100;
       }
     </style>
   </head>
@@ -133,6 +130,7 @@
         </div>
         <input type="text" placeholder="Search for anything you wish to find." id="search">
         <div id="results"></div>
+        <button onclick="alert('hello yo')">Click me</button>
       </div>
     </div>
     <script>
