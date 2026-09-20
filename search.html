@@ -260,10 +260,11 @@
   const anchor = document.createElement("a");
   anchor.href = link.url;
   anchor.textContent = link.text;
-  if (!link.url.toLowerCase().startsWith("magnet:")) {
-    anchor.target = "_blank";
-  }
   anchor.style.color = "yellow";
+  if (link.url.toLowerCase().startsWith("magnet:")) {
+    anchor.target = "_self";
+  } else {
+    anchor.target = "_blank";
   result.appendChild(anchor);
   results.appendChild(result);
 });
