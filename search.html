@@ -189,7 +189,6 @@
         if (other.checked) {
           files = ["other.html"];
         }
-        results.innerHTML = "";
         let found = false;
         for (let file of files) {
           try {
@@ -201,9 +200,12 @@
             for (let link of links) {
               if (link.textContent.toLowerCase().includes(query)) {
                 let result = document.createElement("a");
+                let url = link.getAttribute("href") || "";
                 result.textContent = link.textContent;
-                result.href = link.href;
-                result.target = "_blank";
+                result.href = url;
+                if (!url.trim().toLowerCase().startsWith("magnet:")) {
+                  result.target = "_blank";
+                }
                 result.style.color = "yellow";
                 results.appendChild(result);
                 results.appendChild(document.createElement("br"));
@@ -256,18 +258,15 @@
         } else {
           results.innerHTML = "";
           foundLinks.forEach(link => {
-  const result = document.createElement("div");
-  const anchor = document.createElement("a");
-  anchor.href = link.url;
-  anchor.textContent = link.text;
-  anchor.style.color = "yellow";
-  if (link.url.toLowerCase().startsWith("magnet:")) {
-    anchor.target = "_self";
-  } else {
-    anchor.target = "_blank";
-  result.appendChild(anchor);
-  results.appendChild(result);
-});
+            const result = document.createElement("div");
+            const anchor = document.createElement("a");
+            anchor.href = link.url;
+            anchor.textContent = link.text;
+            anchor.target = "_blank";
+            anchor.style.color = "yellow";
+            result.appendChild(anchor);
+            results.appendChild(result);
+          });
         }
       }
       document.getElementById("linksearch").addEventListener("input", searchLinks);
