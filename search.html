@@ -3,103 +3,123 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
-    <style>
-      body {
-        background-color: black;
-        color: yellow;
-        font-family: unbounded;
-        margin: 0;
-      }
-      #topbar {
-        align-items: center;
-        border: 0.5px solid yellow;
-        height: 30px;
-        display: flex;
-        justify-content: space-between;
-        position: relative;
-        box-sizing: border-box;
-      }
-      #topbar span {
-        position: absolute;
-        left: 50%;
-        transform: translateX(-50%);
-      }
-      #topbar input {
-        margin-left: auto;
-      }
-      #topbar input::placeholder {
-        text-align: center;
-        font-size: 15px;
-        font-family: unbounded;
-      }
-      #topbar a {
-        font-size: 12px;
-        color: yellow;
-      }
-      #layout {
-        display: flex;
-      }
-      #sidebar {
-        border: 0.5px solid yellow;
-        width: 130px;
-        height: calc(100vh - 30px);
-        overflow-y: auto;
-        text-align: center;
-        box-sizing: border-box;
-        flex-shrink: 0;
-        position: relative;
-        z-index: 10;
-      }
-      #sidebar a {
-        color: yellow;
-        border: 0.5px solid yellow;
-        padding: 2px;
-        margin: 2 0;
-        display: inline-block;
-      }
-      #sidebar a:hover {
-        background-color: blue
-      }
-      #main {
-        position: absolute;
-        left: 0;
-        right: 0;
-        text-align: center;
-      }
-      #main label {
-        display: inline-block;
-      }
-      #search {
-        width: 560px;
-        height: 50px;
-        background-color: black;
-        color: yellow;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 25px;
-        border: 0.5px solid yellow;
-      }
-      #categories {
-        margin-bottom: 15px;
-      }
-      #categories label {
-        display: inline-block;
-        margin: 0 5px;
-      }
-      #searchResults {
-        position: absolute;
-        top: 31px;
-        right: 0;
-        width: 300px;
-        max-height: 250px;
-        overflow-y: auto;
-        background-color: black;
-        z-index: 100;
-      }
-    </style>
+    <link rel="stylesheet" href="styles1.css">
+    <title>Main Page</title>
   </head>
   <body>
+    <style>
+      body {
+  background-color: black;
+  color: yellow;
+  font-family: unbounded;
+  margin: 0;
+}
+#topbar {
+  align-items: center;
+  border: 0.5px solid yellow;
+  height: 30px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  box-sizing: border-box;
+}
+#topbar span {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#topbar input {
+  margin-left: auto;
+}
+#topbar input::placeholder {
+  text-align: center;
+  font-size: 15px;
+  font-family: unbounded;
+}
+#topbar a {
+  font-size: 12px;
+  color: yellow;
+}
+#layout {
+  display: flex;
+}
+#sidebar {
+  border: 0.5px solid yellow;
+  width: 130px;
+  height: calc(100vh - 30px);
+  overflow-y: auto;
+  text-align: center;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+#sidebar a {
+  color: yellow;
+  border: 0.5px solid yellow;
+  padding: 2px;
+  margin: 2 0;
+  display: inline-block;
+}
+#sidebar a:hover {
+  background-color: blue
+}
+#main {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+#main label {
+  display: inline-block;
+}
+#search {
+  width: 560px;
+  height: 50px;
+  background-color: black;
+  color: yellow;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 25px;
+  border: 0.5px solid yellow;
+}
+#categories {
+  margin-bottom: 15px;
+}
+#categories label {
+  display: inline-block;
+  margin: 0 5px;
+}
+#searchResults {
+  position: absolute;
+  top: 31px;
+  right: 0;
+  width: 300px;
+  max-height: 250px;
+  overflow-y: auto;
+  background-color: black;
+  z-index: 100;
+}
+#info {
+  background-color: black;
+  color: yellow;
+  border: 0.5px solid yellow;
+  padding: 6;
+}
+#info:hover {
+  cursor: help;
+}
+#torrentinfo {
+  background-color: black;
+  color:yellow;
+  border: 0.5px solid yellow;
+}
+    </style>
+    <script>
+      console.log('My Socials: (Youtube: Alpha-q4j) (Tiktok: deminos96) (discord: bro_issmort2552_97479)')
+    </script>
     <div id="topbar">
-      <a href="index.html" style="color: red;">Head back to main page</a>
+      <button id="info" onclick="alert('This website was made with love for you, the user!')">About this site</button>
+      <a style="color:red" href="index.html">Head back to main page</a>
       <span>Welcome to List-of-Websites!</span>
       <input type="text" id="linksearch" style="background-color: black; border: 0.5px solid yellow; color: yellow;" placeholder="Search for links">
     </div>
@@ -109,7 +129,10 @@
         <a href="android.html" style="width: 125">Android</a><br>
         <a href="onion.html" style="width: 125">Onion Links</a><br>
         <a href="links.html" style="width: 125">Links Dump</a><br>
-        <a href="video.html" style="width: 125">Video</a>
+        <a href="downloading.html" style="width: 125">Downloading</a><br>
+        <a href="video.html" style="width: 125">Video</a><br>
+        <a href="tools.html" style="width: 125">Tools</a><br>
+        <a href="educational.html" style="width: 125">Educational</a>
       </div>
       <div id="main">
         <img width="300" height="250" src="https://tikolu.net/i/hkpat">
@@ -186,6 +209,7 @@
         if (other.checked) {
           files = ["other.html"];
         }
+        results.innerHTML = "";
         let found = false;
         for (let file of files) {
           try {
@@ -197,12 +221,9 @@
             for (let link of links) {
               if (link.textContent.toLowerCase().includes(query)) {
                 let result = document.createElement("a");
-                let url = link.getAttribute("href") || "";
                 result.textContent = link.textContent;
-                result.href = url;
-                if (!url.trim().toLowerCase().startsWith("magnet:")) {
-                  result.target = "_blank";
-                }
+                result.href = link.href;
+                result.target = "_blank";
                 result.style.color = "yellow";
                 results.appendChild(result);
                 results.appendChild(document.createElement("br"));
@@ -268,5 +289,6 @@
       }
       document.getElementById("linksearch").addEventListener("input", searchLinks);
     </script>
+    <div style="position: fixed; bottom: 5px; right: 5px; color: yellow; font-size: 15px;"><button onclick="alert('Every torrent you see is carefully picked so it has a good amount of seeders and a reasonable size!')" id="torrentinfo">ⓘ</button> v 2.0</div>
   </body>
 </html>
