@@ -159,132 +159,139 @@
       </div>
     </div>
     <script>
-      let everything = document.getElementById("everything");
-      let movies = document.getElementById("movies");
-      let games = document.getElementById("games");
-      let audio = document.getElementById("audio");
-      let apps = document.getElementById("apps");
-      let other = document.getElementById("other");
-      let categories = [everything, movies, games, audio, apps, other];
-      for (let category of categories) {
-        category.addEventListener("change", function() {
-          if (this.checked) {
-            for (let otherCategory of categories) {
-              if (otherCategory !== this) {
-                otherCategory.checked = false;
-              }
-            }
-          } else {
-            this.checked = true;
-          }
-          doSearch();
-        });
-      }
-      async function doSearch() {
-        let query = document.getElementById("search").value.toLowerCase().trim();
-        let results = document.getElementById("results");
-        results.innerHTML = "";
-        if (query === "") {
-          return;
-        }
-        let files = [];
-        if (everything.checked) {
-          files = ["movies.html", "games.html", "audio.html", "apps.html", "other.html"];
-        }
-        if (movies.checked) {
-          files = ["movies.html"];
-        }
-        if (games.checked) {
-          files = ["games.html"];
-        }
-        if (audio.checked) {
-          files = ["audio.html"];
-        }
-        if (apps.checked) {
-          files = ["apps.html"];
-        }
-        if (other.checked) {
-          files = ["other.html"];
-        }
-        results.innerHTML = "";
-        let found = false;
-        for (let file of files) {
-          try {
-            let response = await fetch(file);
-            let html = await response.text();
-            let parser = new DOMParser();
-            let page = parser.parseFromString(html, "text/html");
-            let links = page.querySelectorAll("a");
-            for (let link of links) {
-              if (link.textContent.toLowerCase().includes(query)) {
-                let result = document.createElement("a");
-                result.textContent = link.textContent;
-                result.href = link.href;
-                result.target = "_blank";
-                result.style.color = "yellow";
-                results.appendChild(result);
-                results.appendChild(document.createElement("br"));
-                found = true;
-              }
-            }
-          } catch (error) {
-            console.log("Could not search " + file);
-          }
-        }
-        if (!found) {
-          results.innerHTML = "No results found.";
+let everything = document.getElementById("everything");
+let movies = document.getElementById("movies");
+let games = document.getElementById("games");
+let audio = document.getElementById("audio");
+let apps = document.getElementById("apps");
+let other = document.getElementById("other");
+let categories = [everything, movies, games, audio, apps, other];
+for (let category of categories) {
+  category.addEventListener("change", function() {
+    if (this.checked) {
+      for (let otherCategory of categories) {
+        if (otherCategory !== this) {
+          otherCategory.checked = false;
         }
       }
-      document.getElementById("search").addEventListener("input", doSearch);
-      async function searchLinks() {
-        let query = document.getElementById("linksearch").value.toLowerCase().trim();
-        let results = document.getElementById("searchResults");
-        if (query === "") {
-          results.innerHTML = "";
-          return;
-        }
-        const pages = ["index.html", "iptv.html", "links.html", "onion.html", "onionway.html", "piracy.html", "video.html", "android.html", "downloading.html", "tools.html", "educational.html"];
-        results.innerHTML = "Searching...";
-        let foundLinks = [];
-        let seenLinks = new Set();
-        for (const page of pages) {
-          try {
-            const response = await fetch(page);
-            const html = await response.text();
-            const parser = new DOMParser();
-            const documentPage = parser.parseFromString(html, "text/html");
-            const links = documentPage.querySelectorAll("a[href]");
-            links.forEach(link => {
-              const url = link.href;
-              const text = link.textContent.trim();
-              if (url.toLowerCase().includes(query) || text.toLowerCase().includes(query)) {
-                if (!seenLinks.has(url)) {
-                  seenLinks.add(url);
-                  foundLinks.push({url: url, text: text || url});
-                }
-              }
-            });
-          } catch (error) {
-            console.log("Could not search " + page);
-          }
-        }
-        if (foundLinks.length === 0) {
-          results.innerHTML = "No results found.";
-        } else {
-          results.innerHTML = "";
-          foundLinks.forEach(link => {
-            const result = document.createElement("div");
-            const anchor = document.createElement("a");
-            anchor.href = link.url;
-            anchor.textContent = link.text;
-            anchor.target = "_blank";
-            anchor.style.color = "yellow";
-            result.appendChild(anchor);
-            results.appendChild(result);
-          });
+    } else {
+      this.checked = true;
+    }
+    doSearch();
+  });
+}
+async function doSearch() {
+  let query = document.getElementById("search").value.toLowerCase().trim();
+  let results = document.getElementById("results");
+  results.innerHTML = "";
+  if (query === "") {
+    return;
+  }
+  let files = [];
+  if (everything.checked) {
+    files = ["movies.html", "games.html", "audio.html", "apps.html", "other.html"];
+  }
+  if (movies.checked) {
+    files = ["movies.html"];
+  }
+  if (games.checked) {
+    files = ["games.html"];
+  }
+  if (audio.checked) {
+    files = ["audio.html"];
+  }
+  if (apps.checked) {
+    files = ["apps.html"];
+  }
+  if (other.checked) {
+    files = ["other.html"];
+  }
+  results.innerHTML = "";
+  let found = false;
+  for (let file of files) {
+    try {
+      let response = await fetch(file);
+      let html = await response.text();
+      let parser = new DOMParser();
+      let page = parser.parseFromString(html, "text/html");
+      let links = page.querySelectorAll("a");
+      for (let link of links) {
+        if (link.textContent.toLowerCase().includes(query)) {
+          let result = document.createElement("a");
+          result.textContent = link.textContent;
+          result.href = link.href;
+          result.style.color = "yellow";
+          results.appendChild(result);
+          results.appendChild(document.createElement("br"));
+          found = true;
         }
       }
-      document.getElementById("linksearch").addEventListener("input", searchLinks);
+    } catch (error) {
+      console.log("Could not search " + file);
+    }
+  }
+  if (!found) {
+    results.innerHTML = "No results found.";
+  }
+}
+document.getElementById("search").addEventListener("input", doSearch);
+async function searchLinks() {
+  let query = document.getElementById("linksearch").value.toLowerCase().trim();
+  let results = document.getElementById("searchResults");
+  if (query === "") {
+    results.innerHTML = "";
+    return;
+  }
+  const pages = [
+    "index.html",
+    "iptv.html",
+    "links.html",
+    "onion.html",
+    "onionway.html",
+    "piracy.html",
+    "video.html",
+    "android.html"
+  ];
+  results.innerHTML = "Searching...";
+  let foundLinks = [];
+  let seenLinks = new Set();
+  for (const page of pages) {
+    try {
+      const response = await fetch(page);
+      const html = await response.text();
+      const parser = new DOMParser();
+      const documentPage = parser.parseFromString(html, "text/html");
+      const links = documentPage.querySelectorAll("a[href]");
+      links.forEach(link => {
+        const url = link.href;
+        const text = link.textContent.trim();
+        if (url.toLowerCase().includes(query) || text.toLowerCase().includes(query)) {
+          if (!seenLinks.has(url)) {
+            seenLinks.add(url);
+            foundLinks.push({url: url, text: text || url});
+          }
+        }
+      });
+    } catch (error) {
+      console.log("Could not search " + page);
+    }
+  }
+  if (foundLinks.length === 0) {
+    results.innerHTML = "No results found.";
+  } else {
+    results.innerHTML = "";
+    foundLinks.forEach(link => {
+      const result = document.createElement("div");
+      const anchor = document.createElement("a");
+      anchor.href = link.url;
+      anchor.textContent = link.text;
+      anchor.style.color = "yellow";
+      result.appendChild(anchor);
+      results.appendChild(result);
+    });
+  }
+}
+document.getElementById("linksearch").addEventListener("input", searchLinks);
     </script>
     <div style="position: fixed; bottom: 5px; right: 5px; color: yellow; font-size: 15px;"><button onclick="alert('Every torrent you see is carefully picked so it has a good amount of seeders and a reasonable size!')" id="torrentinfo">ⓘ</button> v 2.0</div>
   </body>
