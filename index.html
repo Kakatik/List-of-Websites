@@ -108,6 +108,12 @@
 #info:hover {
   cursor: help;
 }
+#contribute {
+  background-color: black;
+  color: yellow;
+  border: 0.5px solid yellow;
+  padding: 6;
+}
 #torrentinfo {
   background-color: black;
   color:yellow;
@@ -119,6 +125,7 @@
     </script>
     <div id="topbar">
       <button id="info" onclick="alert('This website was made with love for you, the user!')">About this site</button>
+      <button id="contribute" onclick="alert('If you wish to contribute in any way, you can contact me through discord (hint: it is in the console of the inspect menu) and give me ideas on what to add to the website!')">Contribute</button>
       <span>Welcome to List-of-Websites!</span>
       <input type="text" id="linksearch" style="background-color: black; border: 0.5px solid yellow; color: yellow;" placeholder="Search for links">
     </div>
@@ -128,8 +135,9 @@
         <a href="android.html" style="width: 125">Android</a><br>
         <a href="onion.html" style="width: 125">Onion Links</a><br>
         <a href="links.html" style="width: 125">Links Dump</a><br>
-        <a href="iptv.html" style="width: 125">IPTV</a>
-        <a href="general.html" style="width: 125">General</a>
+        <a href="iptv.html" style="width: 125">IPTV</a><br>
+        <a href="general.html" style="width: 125">General</a><br>
+        <a href="https://kakatik.github.io/projectium" style="width: 125" target="_blank">Projectium</a>
         <a href="changelog.html" style="width: 125">ChangeLog</a>
       </div>
       <div id="main">
@@ -298,6 +306,6 @@ async function searchLinks() {
 }
 document.getElementById("linksearch").addEventListener("input", searchLinks);
     </script>
-    <div style="position: fixed; bottom: 5px; right: 5px; color: yellow; font-size: 15px;"><button onclick="alert('Every torrent you see is carefully picked so it has a good amount of seeders and a reasonable size!')" id="torrentinfo">ⓘ</button> v 2.2</div>
+    <div style="position: fixed; bottom: 5px; right: 5px; color: yellow; font-size: 15px;"><button onclick="alert('Every torrent you see is carefully picked so it has a good amount of seeders and a reasonable size!')" id="torrentinfo">ⓘ</button> v 2.3</div>
   </body>
 </html>
